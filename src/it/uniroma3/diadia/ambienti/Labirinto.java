@@ -7,15 +7,22 @@ public class Labirinto {
 	private Stanza stanzaIniziale;
 	private Stanza stanzaVincente;
 	
+	public Labirinto() {
+		creaStanze();
+	}
+
 
 	/**
      * Crea tutte le stanze e le porte di collegamento
      */
-    public Labirinto() {
+    private void creaStanze() {
 
 		/* crea gli attrezzi */
     	Attrezzo lanterna = new Attrezzo("lanterna",3);
 		Attrezzo osso = new Attrezzo("osso",1);
+		Attrezzo portatile = new Attrezzo("portatile",2);
+		Attrezzo borraccia = new Attrezzo("borraccia",4);
+		Attrezzo scimmia = new Attrezzo("scimmia",10);
     	
 		/* crea stanze del labirinto */
 		Stanza atrio = new Stanza("Atrio");
@@ -41,6 +48,9 @@ public class Labirinto {
         /* pone gli attrezzi nelle stanze */
 		aulaN10.addAttrezzo(lanterna);
 		atrio.addAttrezzo(osso);
+		laboratorio.addAttrezzo(portatile);
+		aulaN11.addAttrezzo(borraccia);
+		laboratorio.addAttrezzo(scimmia);
 
 		// il gioco comincia nell'atrio
         stanzaIniziale = atrio;  

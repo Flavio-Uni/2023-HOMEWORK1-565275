@@ -2,7 +2,7 @@ package it.uniroma3.diadia.giocatore;
 
 
 /**
- * Classe ha la responsabilità di gestire i CFU del giocatore e
+ * Classe ha la responsabilitï¿½ di gestire i CFU del giocatore e
  * di memorizzare gli attrezzi in un oggetto istanza della classe
  * Borsa
  * @author caste

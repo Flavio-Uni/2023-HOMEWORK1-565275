@@ -4,44 +4,30 @@ import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-/**
-// * Comando "Posa"
-// * Il giocatore posa un attrezzo dalla sua borsa (se c'è)
-// * nella stanza in cui si trova
-// */
+public class ComandoPosa extends AbstractComando{
 
-public class ComandoPosa implements Comando {
-	
-	String nomeAttrezzo;
-	IO io;
-	
+	private final static String NOME = "posa";
+
+
 	@Override
 	public void esegui(Partita partita) {
-		if(partita.getGiocatore().getBorsa().hasAttrezzo(nomeAttrezzo)) {
-			Attrezzo attrezzo = partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo);
-			partita.getStanzaCorrente().addAttrezzo(attrezzo);
-			partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
-			io.mostraMessaggio("Attrezzo posato!");
+		Attrezzo a = partita.getGiocatore().getBorsa().getAttrezzo(this.getParametro());
+		if(a==null) {
+			this.getIo().mostraMessaggio("Attrezzo non presente nella borsa!");
+			return;
 		}
-		else 
-			io.mostraMessaggio("Attrezzo non presente nella borsa");
-	}
-
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo = parametro;
-		
+		if(partita.getStanzaCorrente().getNumeroAttrezziPossibili()>0) {
+			partita.getLabirinto().getStanzaCorrente().addAttrezzo(a);
+			partita.getGiocatore().getBorsa().removeAttrezzo(this.getParametro());
+		}
+		else {
+			this.getIo().mostraMessaggio("Non c'e' spazio nella stanza per poter inserire questo attrezzo!");
+		}
 	}
 
 	@Override
 	public String getNome() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return NOME;
 
-	@Override
-	public String getParametro() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

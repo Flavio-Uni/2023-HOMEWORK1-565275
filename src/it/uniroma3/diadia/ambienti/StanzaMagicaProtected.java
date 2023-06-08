@@ -1,13 +1,14 @@
 package it.uniroma3.diadia.ambienti;
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class StanzaMagicaProtected extends StanzaProtected {
+public class StanzaMagicaProtected extends StanzaProtected{
 
-//    PER FAR COMPILARE CAMBIA LA VISIBILIT� DELLE VARIABILI "ATTREZZI" E 
-//    "NUMEROATTREZZI" DELLA CLASSE STANZA A PROTECTED!!
+	protected int contatoreAttrezziPosati;
 
-	final static private int SOGLIA_MAGICA_DEFAULT = 3;
-	private int sogliaMagica;
+	protected int sogliaMagica;
+
+	protected static final int SOGLIA_MAGICA_DEFAULT = 2;
 
 	public StanzaMagicaProtected(String nome) {
 		this(nome, SOGLIA_MAGICA_DEFAULT);
@@ -15,21 +16,10 @@ public class StanzaMagicaProtected extends StanzaProtected {
 
 	public StanzaMagicaProtected(String nome, int soglia) {
 		super(nome);
+		this. contatoreAttrezziPosati = 0;
 		this.sogliaMagica = soglia;
 	}
 
-	@Override
-	public boolean addAttrezzo(Attrezzo attrezzo) {
-		this.numeroAttrezzi++;
-		if (this.numeroAttrezzi>this.sogliaMagica)
-			attrezzo = this.modificaAttrezzo(attrezzo);
-		if(this.numeroAttrezzi<this.attrezzi.length) {
-			this.attrezzi[this.numeroAttrezzi] = attrezzo;
-			return true;
-		}
-		else
-			return false;
-	}
 
 	private Attrezzo modificaAttrezzo(Attrezzo attrezzo) {
 		StringBuilder nomeInvertito;
@@ -39,6 +29,14 @@ public class StanzaMagicaProtected extends StanzaProtected {
 		attrezzo = new Attrezzo(nomeInvertito.toString(),
 				pesoX2);
 		return attrezzo;
+	}
+
+	@Override
+	public boolean addAttrezzo(Attrezzo attrezzo) {
+		if (this.contatoreAttrezziPosati>this.sogliaMagica)
+			attrezzo = this.modificaAttrezzo(attrezzo);
+		this.contatoreAttrezziPosati++;
+		return super.addAttrezzo(attrezzo);
 	}
 
 }
